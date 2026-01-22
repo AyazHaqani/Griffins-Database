@@ -1,0 +1,241 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+:root {
+  /* Color Palette inspired by the background image */
+  --primary-glow: #ffc107; /* Fiery orange/yellow from explosions */
+  --secondary-accent: #0dcaf0; /* A contrasting cyan/blue */
+  --background-dark: #0a0f18; /* Deep space blue from the clouds */
+  --text-primary: #e9ecef;
+  --text-secondary: #adb5bd;
+
+  /* Glassmorphism Styles */
+  --glass-bg: rgba(10, 15, 24, 0.6); /* Semi-transparent dark blue */
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: 10px;
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+  --border-radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  /* A nice, dark fallback color */
+  background-color: var(--background-dark);
+  background-image: linear-gradient(
+      rgba(10, 15, 24, 0.5),
+      rgba(10, 15, 24, 0.7)
+    ),
+    url("./assets/background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* This makes the background stay in place on scroll */
+
+  font-family: "Poppins", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-primary);
+}
+
+/* --- Reusable Glassmorphism Container --- */
+.glass-container {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--border-radius);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* --- Animations --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- General Component Overrides --- */
+
+/* Main container for pages */
+.main-container {
+  padding-top: 100px; /* Offset for the sticky navbar */
+  padding-bottom: 40px;
+}
+
+/* --- Navbar Styling --- */
+.navbar {
+  transition: background-color 0.3s ease-in-out;
+}
+
+.navbar.glass-container {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: none;
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: none;
+  padding: 0.5rem 2rem;
+  margin: 1rem auto;
+  width: 95%;
+  border-radius: var(--border-radius);
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+  color: var(--text-primary) !important;
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.navbar-brand:hover,
+.navbar-nav .nav-link:hover {
+  color: var(--primary-glow) !important;
+  transform: translateY(-2px);
+}
+
+.navbar-nav .nav-link.active {
+  color: var(--primary-glow) !important;
+}
+
+/* --- Button Styling --- */
+.btn {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background-image: linear-gradient(
+    45deg,
+    var(--primary-glow),
+    #ff7e5f
+  ) !important;
+  background-size: 200% auto;
+  color: var(--background-dark) !important;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-position: right center; /* change the direction of the change here */
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px 0 rgba(255, 193, 7, 0.4);
+}
+
+/* --- Form & Input Styling --- */
+.form-container {
+  padding: 2rem;
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+.form-control {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1rem !important;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgba(var(--primary-glow), 0.25) !important;
+  border-color: var(--primary-glow) !important;
+}
+
+.form-control::placeholder {
+  color: var(--text-secondary) !important;
+}
+
+/* --- Card Styling --- */
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--border-radius);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: var(
+    --text-primary
+  ); /* Set the default text color for cards to be light */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* --- Table Container for Glassmorphism --- */
+.table-container.glass-container {
+  padding: 1.5rem;
+  /* We need to override the default animation to avoid re-animating on table data changes */
+  animation: fadeIn 0.5s ease-in-out 1;
+}
+
+/* --- Table Styling --- */
+.table {
+  /* Override Bootstrap's default colors */
+  --bs-table-color: var(--text-primary);
+  --bs-table-bg: transparent !important; /* Important to override any inline styles */
+  --bs-table-border-color: var(--glass-border);
+  --bs-table-striped-color: var(--text-primary);
+  --bs-table-striped-bg: rgba(255, 255, 255, 0.05);
+  --bs-table-hover-color: var(--primary-glow);
+  --bs-table-hover-bg: rgba(255, 255, 255, 0.075);
+
+  border: none; /* The container will have the border */
+}
+
+.table > thead {
+  color: var(--primary-glow);
+  font-weight: 600;
+}
+
+.table-hover > tbody > tr:hover > * {
+  color: var(--bs-table-hover-color);
+  background-color: var(--bs-table-hover-bg) !important;
+}
+.table > :not(caption) > * > * {
+  background-color: transparent !important; /* Ensure all cells are transparent */
+}
+
+/* --- List Group Styling --- */
+.list-group {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.list-group-item {
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  transition: all 0.2s ease-in-out;
+}
+
+.list-group-item-action:hover,
+.list-group-item-action:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--primary-glow);
+  transform: translateX(5px);
+  border-left: 3px solid var(--primary-glow);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
